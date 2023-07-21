@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <HomePage msg="Welcome to Your Vue.js App" />
+    <HomePage />
   </div>
 </template>
 
@@ -26,7 +26,7 @@ export default {
   /* color: #2c3e50; */
   margin-top: 60px;
 }
-*{outline: 2px red solid;}
+/* *{outline: 2px red solid;} */
 html {
   background-color: #2c3e50;
 }
