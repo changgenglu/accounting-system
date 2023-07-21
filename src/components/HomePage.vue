@@ -1,5 +1,5 @@
 <template>
-  <div class="container w-50">
+  <div class="container p-5" :class="{ 'w-75': isShowBody }">
     <div class="row">
       <!-- <h1>多人帳務系統</h1> -->
       <div class="input-group pb-4 col-12">
@@ -47,12 +47,12 @@ export default {
           name: 'ivan',
           expenses: [
             {
-              amount: 1234,
-              item: "asdf"
+              amount: 900,
+              item: "啤酒"
             },
             {
-              amount: 4698,
-              item: "fj.7ir"
+              amount: 460,
+              item: "鹽酥雞"
             },
           ]
         },
@@ -61,12 +61,12 @@ export default {
           name: 'song',
           expenses: [
             {
-              amount: 78,
-              item: "asdf"
+              amount: 8000,
+              item: "KTV"
             },
             {
-              amount: 1234,
-              item: "mlsae"
+              amount: 25000,
+              item: "制服店"
             },
           ]
         },
@@ -150,9 +150,12 @@ export default {
   },
   mounted() {
     this.isMobile();
+    this.expenseAmount= 0
 
   },
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+@media screen and (min-width: 768px) {}
+</style>
