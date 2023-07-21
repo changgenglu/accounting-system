@@ -1,17 +1,17 @@
 <template>
-  <div class="container p-5" :class="{ 'w-75': isShowBody }">
+  <div class="container p-5" :class="{ 'w-75': isMobile }">
     <div class="row">
       <!-- <h1>多人帳務系統</h1> -->
       <div class="input-group pb-4 col-12">
         <input type="text" class="form-control " v-model="newUsername" placeholder="輸入使用者名稱">
         <button class="btn btn-success" @click="addUser">新增使用者</button>
       </div>
-      <div v-for="user in users" :key="user.id" class="p-1" :class="{ 'col-6': isShowBody }">
+      <div v-for="user in users" :key="user.id" class="p-1" :class="{ 'col-6': isMobile }">
         <div class="card">
           <div class="card-header" @click="showBody(user.id)">
             <p class="h3">{{ user.name }}</p>
           </div>
-          <div class="card-body" v-show="isShowBody || user.id === activeUserId">
+          <div class="card-body" v-show="isMobile || user.id === activeUserId">
             <div class="input-group mb-3">
               <input class="form-control col-6" type="text" v-model.lazy="expenseItem" placeholder="支出項目">
               <input class="form-control col-4" type="number" v-model.lazy="expenseAmount" placeholder="$">
@@ -72,7 +72,7 @@ export default {
         },
 
       ], // 使用者清單陣列
-      isShowBody: true,
+      isMobile: true,
       activeUserId: null, // 目前正在編輯支出的使用者 ID
       expenseItem: '', // 支出項目輸入值
       expenseAmount: null, // 支出金額輸入值s
@@ -81,15 +81,8 @@ export default {
   },
   watch: {
     expenseAmount: function () {
-      let totalAmount = 0;
-      for (const user of this.users) {
-        if (user.expenses) {
-          for (const expense of user.expenses) {
-            totalAmount += expense.amount;
-          }
-        }
-      }
-      this.totalAmount = totalAmount;
+      this.countAmount();
+
     }
   },
   methods: {
@@ -140,18 +133,30 @@ export default {
       if (expense) {
         // delete expense
         user.expenses.splice(expense, 1);
+        this.countAmount();
+
       }
     },
-    isMobile() {
+    checkDevice() {
       if (window.innerWidth < 768) {
-        this.isShowBody = false;
+        this.isMobile = false;
       }
+    },
+    countAmount() {
+      let totalAmount = 0;
+      for (const user of this.users) {
+        if (user.expenses) {
+          for (const expense of user.expenses) {
+            totalAmount += expense.amount;
+          }
+        }
+      }
+      this.totalAmount = totalAmount;
     }
   },
   mounted() {
-    this.isMobile();
-    this.expenseAmount= 0
-
+    this.checkDevice();
+    this.countAmount();
   },
 }
 </script>
