@@ -6,12 +6,12 @@
         <input type="text" class="form-control " v-model="newUsername" placeholder="輸入使用者名稱">
         <button class="btn btn-success" @click="addUser">新增使用者</button>
       </div>
-      <div v-for="user in users" :key="user.id" class="col-6 p-1">
+      <div v-for="user in users" :key="user.id" class="p-1" :class="{ 'col-6': isShowBody }">
         <div class="card">
-          <div class="card-header">
+          <div class="card-header" @click="showBody(user.id)">
             <p class="h3">{{ user.name }}</p>
           </div>
-          <div class="card-body">
+          <div class="card-body" v-show="isShowBody || user.id === activeUserId">
             <div class="input-group mb-3">
               <input class="form-control col-6" type="text" v-model.lazy="expenseItem" placeholder="支出項目">
               <input class="form-control col-4" type="number" v-model.lazy="expenseAmount" placeholder="$">
@@ -41,7 +41,38 @@ export default {
   data() {
     return {
       newUsername: "", // 新增使用者的名稱
-      users: [], // 使用者清單陣列
+      users: [
+        {
+          id: 1,
+          name: 'ivan',
+          expenses: [
+            {
+              amount: 1234,
+              item: "asdf"
+            },
+            {
+              amount: 4698,
+              item: "fj.7ir"
+            },
+          ]
+        },
+        {
+          id: 2,
+          name: 'song',
+          expenses: [
+            {
+              amount: 78,
+              item: "asdf"
+            },
+            {
+              amount: 1234,
+              item: "mlsae"
+            },
+          ]
+        },
+
+      ], // 使用者清單陣列
+      isShowBody: true,
       activeUserId: null, // 目前正在編輯支出的使用者 ID
       expenseItem: '', // 支出項目輸入值
       expenseAmount: null, // 支出金額輸入值s
@@ -76,7 +107,7 @@ export default {
         this.newUsername = "";
       }
     },
-    showInput(userId) {
+    showBody(userId) {
       // 切換顯示輸入框的使用者 ID
       this.activeUserId = userId;
       // 清空輸入欄位
@@ -110,7 +141,16 @@ export default {
         // delete expense
         user.expenses.splice(expense, 1);
       }
+    },
+    isMobile() {
+      if (window.innerWidth < 768) {
+        this.isShowBody = false;
+      }
     }
+  },
+  mounted() {
+    this.isMobile();
+
   },
 }
 </script>
