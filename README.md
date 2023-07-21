@@ -1,24 +1,27 @@
 # accounting-system
 
-## Project setup
-```
-pnpm install
-```
+[github pages](https://changgenglu.github.io/accounting-system/)
 
-### Compiles and hot-reloads for development
-```
-pnpm run serve
-```
+我要用 javascript 建立一個記帳系統，並且可以使用瀏覽器操作
+首先這個系統可以建立使用者，再來選取使用者，輸入其支出項目與花費的金額，當所有使用者與其花費金額建立完成後，計算所有使用者的平均花費
 
-### Compiles and minifies for production
-```
-pnpm run build
-```
+## 第一階段功能-靜態頁面
 
-### Lints and fixes files
-```
-pnpm run lint
-```
+1. 輸入使用者名稱
+2. 選取使用者並記錄其支出項目與支出金額
+3. 將所有人的花費平均
+4. 修改使用者名稱
+5. 修改使用者其支出項目與支出金額
+6. 設定最後由誰統一收錢
+7. 計算每個人應支付的金額
+8. 指定要結帳的使用者
+9. 指定要結帳的支出項目
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 第二階段功能-資料持久化
+
+1. 記錄每一位使用者名稱
+2. 建立新的結帳活動
+3. 使用者加入新的結帳活動
+4. 紀錄活動支出項目與金額
+5. 修改記錄
+6. 回報支付狀況
