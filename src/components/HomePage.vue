@@ -47,30 +47,23 @@ export default {
           name: 'ivan',
           expenses: [
             {
-              amount: 900,
-              item: "啤酒"
+              amount: 1,
+              item: "1"
             },
             {
-              amount: 460,
-              item: "鹽酥雞"
+              amount: 2,
+              item: "2"
+            },
+            {
+              amount: 3,
+              item: "3"
+            },
+            {
+              amount: 4,
+              item: "4"
             },
           ]
-        },
-        {
-          id: 2,
-          name: 'song',
-          expenses: [
-            {
-              amount: 8000,
-              item: "KTV"
-            },
-            {
-              amount: 25000,
-              item: "制服店"
-            },
-          ]
-        },
-
+        }
       ], // 使用者清單陣列
       isMobile: true,
       activeUserId: null, // 目前正在編輯支出的使用者 ID
@@ -82,7 +75,6 @@ export default {
   watch: {
     expenseAmount: function () {
       this.countAmount();
-
     }
   },
   methods: {
@@ -90,7 +82,6 @@ export default {
       const username = this.newUsername.trim();
       if (username !== "") {
         const user = this.users.find((user) => user.name === username);
-
         if (typeof user === "undefined") {
           const user = { id: this.users.length + 1, name: username };
           this.users.push(user);
@@ -110,11 +101,9 @@ export default {
     addExpense(userId) {
       const item = this.expenseItem.trim();
       const amount = parseFloat(this.expenseAmount);
-
       if (item !== '' && !isNaN(amount) && amount > 0) {
         // 找到目前正在編輯支出的使用者
         const user = this.users.find((user) => user.id === userId);
-
         // 建立支出物件並加入使用者的支出清單
         const expense = { item: item, amount: amount };
         if (!user.expenses) {
@@ -129,13 +118,10 @@ export default {
     },
     deleteExpense(userId, item, amount) {
       const user = this.users.find((user) => user.id === userId);
-      const expense = user.expenses.find((expense) => expense.item === item && expense.amount === amount);
-      if (expense) {
-        // delete expense
-        user.expenses.splice(expense, 1);
-        this.countAmount();
-
-      }
+      const expense = user.expenses.findIndex((expense) => expense.item === item && expense.amount === amount);
+      // delete expense
+      user.expenses.splice(expense, 1);
+      this.countAmount();
     },
     checkDevice() {
       if (window.innerWidth < 768) {
